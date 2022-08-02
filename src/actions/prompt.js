@@ -1,14 +1,13 @@
 export const toggleLoginPrompt = (payload) => {
-    return {
-        type: "TOGGLE_LOGIN_PROMPT",
-        payload: payload
-    }
-}
+  return {
+    type: "TOGGLE_LOGIN_PROMPT",
+    payload,
+  };
+};
 
-export const toggleThreadPrompt = (payload) => {
-    return {
-        type: "TOGGLE_THREAD_PROMPT",
-        payload: payload
-    }
-}
-
+export const toggleRegisterPrompt = (payload) => {
+  return {
+    type: "TOGGLE_REGISTER_PROMPT",
+    payload,
+  };
+};
