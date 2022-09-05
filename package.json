@@ -79,7 +79,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build --force",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
