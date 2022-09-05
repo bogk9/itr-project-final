@@ -1,6 +1,6 @@
 const {Model} = require('objection');
 const knex = require('../config/database');
-const CollectionItem = require('./CollectionItem');
+const CollectionItem = require('./collectionitem');
 
 Model.knex(knex);
 

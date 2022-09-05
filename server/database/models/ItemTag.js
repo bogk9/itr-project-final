@@ -1,6 +1,6 @@
 const {Model} = require('objection');
 const knex = require('../config/database')
-const Tag = require('./Tag');
+const Tag = require('./tag');
 
 Model.knex(knex);
 

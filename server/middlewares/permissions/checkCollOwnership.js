@@ -1,4 +1,4 @@
-const Collection = require("../../database/models/Collection");
+const Collection = require("../../database/models/collection");
 
 const checkCollOwnership = (req, res, next) => {
     if(req.userRole == "2") next()

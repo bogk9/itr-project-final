@@ -1,11 +1,11 @@
 const {Model} = require('objection');
 const knex = require('../config/database');
-const CollectionItem = require('./CollectionItem');
-const Collection = require('./Collection');
-const Comment = require('./Comment');
-const FieldData = require('./FieldData')
-const ItemTag = require('./ItemTag')
-const ItemLike = require('./ItemLike')
+const CollectionItem = require('./collectionitem');
+const Collection = require('./collection');
+const Comment = require('./comment');
+const FieldData = require('./fielddata')
+const ItemTag = require('./itemtag')
+const ItemLike = require('./itemlike')
 
 Model.knex(knex);
 

@@ -1,7 +1,7 @@
 const {body, checkSchema, validationResult} = require('express-validator');
-const User = require('../../database/models/User');
-const Item = require('../../database/models/Item');
-const Topic = require('../../database/models/Topic');
+const User = require('../../database/models/user');
+const Item = require('../../database/models/item');
+const Topic = require('../../database/models/topic');
 
 const registrationSchema = {
     username: {

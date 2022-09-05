@@ -1,20 +1,20 @@
-const User = require("../database/models/User");
+const User = require("../database/models/user");
 const findQuery = require('objection-find');
-const Collection = require("../database/models/Collection");
-const Item = require("../database/models/Item");
-const Comment = require("../database/models/Comment")
-const Field = require("../database/models/Field");
-const Topic = require("../database/models/Topic");
-const Tag = require("../database/models/Tag");
-const ItemTag = require("../database/models/ItemTag");
-const FieldData = require("../database/models/FieldData");
+const Collection = require("../database/models/collection");
+const Item = require("../database/models/item");
+const Comment = require("../database/models/comment")
+const Field = require("../database/models/field");
+const Topic = require("../database/models/topic");
+const Tag = require("../database/models/tag");
+const ItemTag = require("../database/models/itemtag");
+const FieldData = require("../database/models/fielddata");
 const knex = require('../database/config/database')
 const { body, validationResult } = require('express-validator');
 
 
-const CollectionItem = require("../database/models/CollectionItem");
+const CollectionItem = require("../database/models/collectionitem");
 const { query } = require("../database/models/user");
-const ItemLike = require("../database/models/ItemLike");
+const ItemLike = require("../database/models/itemlike");
 const secret_key = "test";
 
 

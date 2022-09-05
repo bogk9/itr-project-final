@@ -1,5 +1,5 @@
 
-const Item = require("../../database/models/Item");
+const Item = require("../../database/models/item");
 let checkItemOwnership = (req, res, next) => {
     if(req.userRole == "2") next()
 
