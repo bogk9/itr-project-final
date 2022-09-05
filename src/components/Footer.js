@@ -4,17 +4,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate, Link } from "react-router-dom";
+import { StyledBox } from "./styling";
 
 const ResponsiveAppBar = (props) => {
   const navigate = useNavigate();
   return (
-    <AppBar
-      position="static"
-      sx={{
-        borderRadius: 5,
-        marginBottom: 2,
-        backgroundColor: "#2F2F2F",
-      }}
+    <StyledBox 
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -33,7 +28,7 @@ const ResponsiveAppBar = (props) => {
           </Typography>
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledBox>
   );
 };
 export default ResponsiveAppBar;

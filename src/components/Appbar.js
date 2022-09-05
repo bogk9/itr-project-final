@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,13 +12,24 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleLoginPrompt } from "../actions/prompt";
+import { toggleLoginPrompt, toggleRegisterPrompt } from "../actions/prompt";
 import { logout } from "../actions/auth";
+import { Autocomplete } from "./Search/Autocomplete";
+import algoliasearch from 'algoliasearch';
+import { getAlgoliaResults } from '@algolia/autocomplete-js';
+import { ProductItem } from "./Search/ProductItem";
+import { NavigationButton } from "./styling";
+import { Grid } from "@mui/material";
+
+const appId = 'TL13X0C6TX';
+const apiKey = 'f744c2ff133836bfd53134b3af3f3e3d';
+const searchClient = algoliasearch(appId, apiKey);
 
 const ResponsiveAppBar = (props) => {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { currentUser } = useSelector((state) => state.auth);
+  const user = useSelector(state => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleOpenUserMenu = (event) => {
@@ -38,51 +49,75 @@ const ResponsiveAppBar = (props) => {
       sx={{
         borderRadius: 5,
         marginTop: 1,
-        backgroundColor: "#2F2F2F",
+        backgroundColor: "#3A3A3C",
       }}
     >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { md: "flex" }, fontWeight: "750" }}
-          >
-            Task 4 example >{" "}
-            {window.location.pathname
-              .substring(1)
-              .substring(0, window.location.pathname.substring(1).indexOf("/"))
-              ? window.location.pathname
-                  .substring(1)
-                  .substring(
-                    0,
-                    window.location.pathname.substring(1).indexOf("/")
-                  )
-              : "main"}
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }} />
-          <Box>
+      <Grid container wrap="nowrap" sx={{padding: 1}} direction="row" maxWidth="xl" alignItems="center" justifyContent="center">
+        <Grid item xs={6} sm={6} md={3} lg={3} xl={3} sx={{display: "flex", justifyContent: "flex-start", maxWidth: "none !important"}}>
+        <NavigationButton onClick={() => navigate('/')}>Home</NavigationButton>
+          {user?.role == "2" && <NavigationButton onClick={() => navigate('/panel')}>Panel</NavigationButton>}
+          <NavigationButton onClick={() => navigate('/collections')}>My Collections</NavigationButton>
+        </Grid>
+          <Grid item sx={{display: { xs: "none", sm: "none", md: "flex", lg: "flex", xl: "flex"}, justifyContent: "stretch"}} md={6} lg={6} xl={6} >
+              <Autocomplete
+                sx={{width: "100%"}}
+                openOnFocus={true}
+                getSources={({ query }) => [
+                  {
+                    sourceId: 'products',
+                    getItems() {
+                      return getAlgoliaResults({
+                        searchClient,
+                        queries: [
+                          {
+                            indexName: 'test_index',
+                            query,
+                          },
+                        ],
+                      });
+                    },
+                    templates: {
+                      item({ item, components }) {
+                        return <ProductItem hit={item} components={components} />;
+                      },
+                    },
+                  },
+                ]}
+              />
+        </Grid>
+
+        <Grid item xs={6} sm={6} md={3} lg={3} xl={3} sx={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
+            <Box sx={{margin: "0px 5px 0px 5px"}}>
             <Typography>
-              {currentUser
-                ? "Logged as: " + currentUser.username
+              {user
+                ? "Logged as: " + user.username
                 : "Not logged in."}
             </Typography>
-          </Box>
-          <Box sx={{ flexGrow: 0.05 }}>
+            </Box>
+            <Box sx={{margin: "0px 5px 0px 5px"}}>
             <Button
               onClick={() => {
                 dispatch(toggleLoginPrompt(true));
               }}
-              sx={{ display: currentUser ? "none" : "inline" }}
+              sx={{ display: user ? "none" : "inline" }}
               hidden
             >
               {" "}
               Log In.{" "}
             </Button>
-          </Box>
+            <Button
+              onClick={() => {
+                dispatch(toggleRegisterPrompt(true));
+              }}
+              sx={{ display: user ? "none" : "inline" }}
+              hidden
+            >
+              {" "}
+              Sign Up.{" "}
+            </Button>
+            </Box>
 
-          <Box>
+          <Box sx={{margin: "0px 20px 0px 5px"}}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -105,7 +140,7 @@ const ResponsiveAppBar = (props) => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem
-                disabled={!currentUser}
+                disabled={!user}
                 key="logout"
                 onClick={handleLogout}
               >
@@ -113,8 +148,8 @@ const ResponsiveAppBar = (props) => {
               </MenuItem>
             </Menu>
           </Box>
-        </Toolbar>
-      </Container>
+        </Grid>
+      </Grid>
     </AppBar>
   );
 };

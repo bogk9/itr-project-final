@@ -11,3 +11,10 @@ export const toggleRegisterPrompt = (payload) => {
     payload,
   };
 };
+
+export const toggleDetailsPrompt = (payload) => {
+  return {
+    type: "TOGGLE_DETAILS_PROMPT",
+    payload,
+  };
+};

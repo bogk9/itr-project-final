@@ -7,7 +7,22 @@ import { Input } from "@mui/material";
 export const LoginBox = styled(Box)({
   "& ": {
     borderColor: "black",
-    backgroundColor: "#2F2F2F",
+    backgroundColor: "#3A3A3C",
+    borderWidth: 2,
+    borderRadius: "10%",
+    padding: 25,
+    marginTop: 0,
+    marginBottom: 16,
+    borderWidth: "10px",
+    textAlign: "center",
+  },
+});
+
+export const DetailsBox = styled(Box)({
+  "& ": {
+    borderColor: "black",
+    color: "white",
+    backgroundColor: "#3A3A3C",
     borderWidth: 2,
     borderRadius: "10%",
     padding: 25,
@@ -159,13 +174,30 @@ export const SubmitButton = styled(Button)({
   },
 });
 
+export const NavigationButton = styled(Button)({
+  "& ": {
+    borderColor: "white",
+    color: "white",
+    backgroundColor: "#8E8E93",
+    height: "50px",
+    borderRadius: 20,
+    textAlign: "left",
+    padding: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginTop: 2,
+    marginLeft: 6,
+    marginRight: 6
+  },
+});
+
 export const StyledBox = styled(Box, {
   name: "StyledBox",
   slot: "Wrapper",
 })({
   border: "solid",
-  borderColor: "#2F2F2F",
-  backgroundColor: "#2F2F2F",
+  borderColor: "#3A3A3C",
+  backgroundColor: "#3A3A3C",
   borderRadius: 20,
   display: "flex",
   flexDirection: "row",
@@ -174,4 +206,17 @@ export const StyledBox = styled(Box, {
   padding: "20px 20px 20px 20px",
   height: "5vh",
   marginBottom: 20,
+  color: "white"
+});
+
+export const TagWrapper = styled(Box, {
+  name: "TagWrapper",
+  slot: "Wrapper",
+})({
+  borderColor: "#3A3A3C",
+  borderRadius: 20,
+  width: "max-content",
+  padding: "2px 5px 2px 5px",
+  color: "white",
+  margin: "0px 5px 0px 0px"
 });

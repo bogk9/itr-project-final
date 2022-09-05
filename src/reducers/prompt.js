@@ -1,4 +1,9 @@
-const initialState = { openLoginPrompt: false, openRegisterCreator: false };
+const initialState = { 
+  openLoginPrompt: false, 
+  openRegisterCreator: false,
+  openDetailsPrompt: false,
+  detailsData: {}
+ };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -12,6 +17,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         openRegisterPrompt: payload,
+      };
+    case "TOGGLE_DETAILS_PROMPT":
+      return {
+        ...state,
+        openDetailsPrompt: payload,
       };
     default:
       return state;

@@ -9,8 +9,7 @@
 }
 
 #sidetitle {
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 10px 10px 10px 10px;
   margin-right: auto;
   margin-bottom: 5px;
   margin-top: 5px;
@@ -19,12 +18,19 @@
 }
 
 #sidetext {
-  padding-left: 8px;
-  padding-right: 8px;
+
+  padding: 0px 10px 10px 10px;
   margin-bottom: 5px;
   margin-right: auto;
   font-size: 15px;
   overflow: hidden;
+}
+
+#colform {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
 }
 
 .react-tag-input {
@@ -38,8 +44,178 @@ input {
   padding: 15px;
   border-color: white !important;
   border: solid;
-  background-color: #2f2f2f;
+  background-color: #3A3A3C;
   margin: 5px;
-
+  color: white;
   border-width: 2px;
+  display: flex;
+  flex: 1;
+}
+
+select {
+  border-radius: 20px;
+  padding: 15px;
+  border-color: white !important;
+  border: solid;
+  background-color: #3A3A3C;
+  margin: 5px;
+  color: white;
+  border-width: 2px;
+  display: flex;
+  flex: 1;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-radius: 20px !important;
+  padding: 15px !important;
+  border-color: white !important;
+  border: solid !important;
+  margin: 5px !important;
+  color: white !important;
+  border-width: 2px !important;
+}
+
+.MuiOutlinedInput-root{
+  color: white !important;
+}
+
+.MuiSvgIcon-root > * {
+  color: white;
+}
+
+.aa-ItemType {
+  border: solid;
+  border-color: black;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  padding: 1px 3px 1px 3px;
+}
+
+.aa-ItemTitle {
+  font-size: 20px;
+}
+
+.aa-ItemText {
+  font-size: 15px;
+}
+.ReactTags__tags{
+  display: flex;
+}
+
+.ReactTags__selected{
+  display: flex;
+  height: 100%;
+}
+
+.ReactTags__tag {
+  border: solid;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.ReactTags__tagInput{
+  height: 100%
+}
+
+.ReactTags__remove{
+  background-color: #f46036;
+  border: 0px solid;
+  border-radius: 30px;
+  height: 20px;
+  padding: 0px 5.8px 0px 5.8px;
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.ReactTags__suggestions > * {
+  position: absolute;
+  border-radius: 15px;
+}
+.ReactTags__suggestions ul {
+  list-style-type: none;
+  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+  background: white;
+  width: 200px;
+  border-radius: 15px;
+}
+
+.ReactTags__suggestions li {
+  padding: 5px 10px;
+  margin: 0;
+  border-radius: 15px;
+}
+.ReactTags__suggestions li mark {
+  background: none;
+  font-weight: 600;
+}
+.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+  background: #8c8c8d;
+  cursor: pointer;
+}
+
+.ReactTags__suggestions > ul{
+  list-style: none;
+}
+
+.aa-Form{
+  border-radius: 30px;
+  background-color: #8E8E93;
+}
+
+.aa-Autocomplete{
+  width: 100% !important;
+}
+
+.w-md-editor {
+  border-radius: 20px !important;
+  margin: 5px !important;
+  background-color: transparent !important;
+  border-width: 2px !important;
+  border: solid !important;
+  border-color: white !important;
+}
+
+.w-md-editor-toolbar {
+  border-radius: 20px !important;
+  border-width: 2px !important;
+  margin-top: 0.5px !important;
+  background-color: #8E8E93 !important;
+  border-color: transparent !important;
+
+}
+
+.wmde-markdown {
+  color: white !important;
+  background-color: transparent !important;
+}
+
+.w-md-editor-text {
+  color: white !important;
+  background-color: transparent !important;
+}
+
+.w-md-editor-text-input{
+  color: white !important;
+  background-color: transparent !important;
+}
+
+.react-datepicker__input-container{
+  display: flex !important;
+}
+
+.bool-radio{
+  flex:0
+}
+
+.bool-input{
+  border-radius: 20px;
+  padding: 15px;
+  margin: 5px;
+  display: flex;
+  justify-content: flex-start;
+  border: solid;
 }

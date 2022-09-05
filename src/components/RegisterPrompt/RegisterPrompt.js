@@ -51,6 +51,7 @@ export const RegisterPrompt = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [file, setFile] = useState();
   const [successful, setSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
   const { openRegisterPrompt } = useSelector((state) => state.prompt);
@@ -69,6 +70,9 @@ export const RegisterPrompt = () => {
     const password = e.target.value;
     setPassword(password);
   };
+  const onChangeFile = (e) => {
+    setFile(e.target.files[0])
+  }
   const handleClose = () => {
     dispatch(toggleRegisterPrompt(false));
   };
@@ -77,15 +81,12 @@ export const RegisterPrompt = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(username, email, password))
+      dispatch(register(username, email, password, file))
         .then(() => {
           return dispatch(login(username, password));
         })
         .then(() => {
-          setUsername("");
-          setPassword("");
-          setEmail("");
-          setLoading(false);
+          setUsername(""); setPassword(""); setEmail(""); setLoading(false);
           dispatch(toggleRegisterPrompt(false));
           dispatch({ type: CLEAR_MESSAGE });
           navigate("/panel");
@@ -146,6 +147,9 @@ export const RegisterPrompt = () => {
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
                 />
+              </div>
+              <div className="form-group">
+                <Input type="file" name="image" onChange={onChangeFile}/>
               </div>
               <div className="form-group">
                 <SubmitButton

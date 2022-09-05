@@ -5,12 +5,36 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
+import { TagCloud } from 'react-tagcloud'
+import { authHeader } from "../../services/auth-header";
+import { useNavigate } from "react-router-dom";
+
 
 export const SideMenu = () => {
+  const headers = authHeader();
+  const navigate = useNavigate();
+  let [tags, setTags] = useState([]);
+  const getData = (action, targets, headers, extraParams = {}) => {
+    const params = new URLSearchParams(targets.map((s) => ["item_id", s]));
+    Object.entries(extraParams).forEach(([key, value]) => params.append(key, value));
+    return fetch(`/api/get/${action}?${params.toString()}`,{method: "GET" })
+    .then((res) => {
+      if (!res.ok)
+        return res.json().then((error) => {throw new Error(error.message);});
+      return res.json();
+    });
+  };
+
+
+  useEffect(() => {
+    getData('tagsChart', [], headers)
+    .then(response => setTags(response))
+  }, [])
+
   const ContentHeader = styled(ListItem)({
     "& ": {
       borderColor: "black",
-      backgroundColor: "#2F2F2F",
+      backgroundColor: "#3A3A3C",
       borderWidth: 2,
       borderRadius: 20,
       padding: 15,
@@ -32,7 +56,7 @@ export const SideMenu = () => {
         sx={{ height: "100%" }}
         display={{ xs: "none", sm: "none", md: "flex", lg: "flex" }}
       >
-        <Grid sx={{ height: "100%" }} container spacing={2}>
+        <Grid container spacing={2}>
           <Grid sx={{ display: "flex" }} item xs={0} sm={12} md={12} lg={12}>
             <ContentHeader
               id="side"
@@ -44,26 +68,18 @@ export const SideMenu = () => {
               </Box>
               <Content id="sidetitle">Hello.</Content>
               <Content id="sidetext">
-                This is a #4 task for iTransition Intern Developer program.
+                This is a project for iTransition Intern Developer program.
               </Content>
               <Content id="sidetext">
                 Tech stack includes: React, Redux, MUI, jsonwebtoken, bcryptjs,
-                node, express, mongoDB
+                node, express, mysql, objection.js, aglolia-search and more...
               </Content>
             </ContentHeader>
           </Grid>
 
           <Grid sx={{ display: "flex" }} item xs={12}>
             <ContentHeader>
-              <ListItemText
-                secondary={
-                  <React.Fragment>
-                    <Content>Sample second</Content>
-                    <Content>sidebar</Content>
-                    <Content>element.</Content>
-                  </React.Fragment>
-                }
-              />
+              <TagCloud tags={tags} minSize={12} maxSize={35} onClick={tag => navigate(`/collection/tag/${tag.tag_id}`)} />
             </ContentHeader>
           </Grid>
 

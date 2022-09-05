@@ -1,12 +1,20 @@
 import axios from "axios";
+import FormData from 'form-data'
+
 const API_URL = "/api/auth/";
-export const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
-    username,
-    email,
-    password,
-  });
-};
+export const register = (username, email, password, file) => {
+  let data = new FormData();
+  data.append('image', file);
+  data.append('username', username);
+  data.append('password', password);
+  data.append('email', email);
+
+  return axios.post(API_URL + "signup", data, {headers: {
+    'accept': 'application/json',
+    'Accept-Language': 'en-US,en;q=0.8',
+    'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+  }});
+  };
 const login = (username, password) => {
   return axios
     .post(API_URL + "signin", {
@@ -15,9 +23,7 @@ const login = (username, password) => {
     })
     .then((response) => {
       if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-        localStorage.setItem("username", JSON.stringify(username));
-      }
+        localStorage.setItem("user", JSON.stringify(response.data));      }
       return response.data;
     });
 };

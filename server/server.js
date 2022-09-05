@@ -1,16 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const algoliasearch = require('algoliasearch')
 const cors = require("cors");
 const path = require("path");
-
-const PORT = process.env.PORT || 3000;
-const dbo = require("./db/conn");
+const controller = require('./controllers/user.controller');
+const algolia = require('./libs/algolia')
+const PORT = process.env.PORT || 3001;
 const publicPath = path.join(__dirname, "..", "build");
-
 const app = express();
 var corsOptions = {
   origin: "http://localhost:" + PORT.toString(),
 };
+
+algolia();
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -25,8 +27,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  dbo.connectToServer(function (err) {
-    if (err) console.error(err);
-  });
   console.log(`Server is running on port ${PORT}.`);
 });

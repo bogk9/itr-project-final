@@ -19,10 +19,10 @@ export const Panel = () => {
   const [checked, setChecked] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const sendRequest = (action, targets, extraParams = {}) => {
+  const sendRequest = (action, targets, extraParams = {}, method) => {
     const params = new URLSearchParams(targets.map((s) => ["id", s]));
     Object.entries(extraParams).forEach(([key, value]) => params.append(key, value));
-    return fetch(`/api/get/${action}?${params.toString()}`,{ headers })
+    return fetch(`/api/get/${action}?${params.toString()}`,{method: method, headers })
     .then((res) => {
       if (!res.ok)
         return res.json().then((text) => {throw new Error(text.message);});
@@ -31,19 +31,18 @@ export const Panel = () => {
   };
   const loadUsers = () => {
     setIsLoading(true);
-    sendRequest("userList", [], authHeader)
+    sendRequest("userList", [], authHeader, "GET")
       .then((response) => setFetchedUsers(response))
       .catch((error) => {
-        setError(error.message);
-        setFetchedUsers([]);
+        setError(error.message); setFetchedUsers([]);
         setTimeout(() => { navigate("/"); dispatch(logout());}, 1500);
       })
       .finally(() => setIsLoading(false));
   };
   const alternateUser = (action, extraParams) => {
-    sendRequest(action, checked, extraParams)
+    sendRequest(action, checked, extraParams, "PUT")
       .then((res) => loadUsers())
-      .catch((error) => setError(error.message));
+      .catch((error, res) => {setError(error.message); console.log(res)});
   };
   useEffect(() => {
     loadUsers();
@@ -59,7 +58,7 @@ export const Panel = () => {
               sx={{ margin: 1 }}
               disabled={!checked.length > 0}
               endIcon={<SendIcon />}
-              onClick={() => alternateUser("changeUserStatus", { active: 0 })}
+              onClick={() => alternateUser("changeUserStatus", { role: 0 })}
             >
               Block
             </Button>
@@ -68,7 +67,7 @@ export const Panel = () => {
               sx={{ margin: 1 }}
               disabled={!checked.length > 0}
               endIcon={<SendIcon />}
-              onClick={() => alternateUser("changeUserStatus", { active: 1 })}
+              onClick={() => alternateUser("changeUserStatus", { role: 1 })}
             >
               Unblock
             </Button>
@@ -77,19 +76,37 @@ export const Panel = () => {
               sx={{ margin: 1 }}
               disabled={!checked.length > 0}
               endIcon={<SendIcon />}
-              onClick={() => alternateUser("deleteUser", { active: 1 })}
+              onClick={() => alternateUser("changeUserStatus", { role: 2 })}
+            >
+              Make Admin
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ margin: 1 }}
+              disabled={!checked.length > 0}
+              endIcon={<SendIcon />}
+              onClick={() => alternateUser("changeUserStatus", { role: 1 })}
+            >
+              Make user
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ margin: 1 }}
+              disabled={!checked.length > 0}
+              endIcon={<SendIcon />}
+              onClick={() => alternateUser("deleteUser", {})}
             >
               Delete
             </Button>
             {error && (
               <Typography sx={{ color: "white" }}>
-                <b>Error:</b> {error} Redirecting to home page.
+                <b>Error:</b> {error}
               </Typography>
             )}
           </StyledBox>
         </Grid>
         <Grid item xs={12} align="center">
-          <StyledBox sx={{ height: "80vh !important" }}>
+          <StyledBox sx={{ height: "80vh !important", marginBottom: '0px !important' }}>
             {isLoading && <LinearProgress />}
             <UserList
               users={fetchedUsers}
