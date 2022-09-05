@@ -12,7 +12,7 @@ const knex = require('../database/config/database')
 const { body, validationResult } = require('express-validator');
 
 
-const CollectionItem = require("../database/models/collectionitemm");
+const CollectionItem = require("../database/models/collectionitem");
 const { query } = require("../database/models/user");
 const ItemLike = require("../database/models/itemlike");
 const secret_key = "test";
