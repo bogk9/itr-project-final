@@ -30,6 +30,7 @@ module.exports = function (app) {
   app.get("/api/get/topics", controller.getTopics);
   app.get("/api/get/tags", controller.getTags);
   app.get("/api/get/tagsChart", controller.getTagsChart);
+  app.get("/api/get/collectionsChart", controller.getCollectionsChart);
   app.get("/api/get/comments", controller.getComments);
   app.get("/api/get/search", controller.search);
   app.get("/api/get/itemData", controller.getItemData);

@@ -24,8 +24,8 @@ import { DataService } from "../services/data.service";
     })
   }
   
-  export const fetchCollections = (user_id) => (dispatch) => {
-    return DataService.fetchCollections(user_id)
+  export const fetchCollections = (user_id, header) => (dispatch) => {
+    return DataService.fetchCollections(user_id, header)
     .then(response => {
         dispatch({type: "FETCH_COLLECTIONS_SUCCESS", payload: response})
         return Promise.resolve("");

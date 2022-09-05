@@ -14,6 +14,7 @@ export const SideMenu = () => {
   const headers = authHeader();
   const navigate = useNavigate();
   let [tags, setTags] = useState([]);
+  let [collectionsChart, setCollectionsChart] = useState([]);
   const getData = (action, targets, headers, extraParams = {}) => {
     const params = new URLSearchParams(targets.map((s) => ["item_id", s]));
     Object.entries(extraParams).forEach(([key, value]) => params.append(key, value));
@@ -29,6 +30,11 @@ export const SideMenu = () => {
   useEffect(() => {
     getData('tagsChart', [], headers)
     .then(response => setTags(response))
+  }, [])
+
+  useEffect(() => {
+    getData("collectionsChart", [], headers)
+    .then(response => setCollectionsChart(response));
   }, [])
 
   const ContentHeader = styled(ListItem)({
@@ -88,9 +94,7 @@ export const SideMenu = () => {
               <ListItemText
                 secondary={
                   <React.Fragment>
-                    <Content>Sample third</Content>
-                    <Content>sidebar</Content>
-                    <Content>element.</Content>
+                    {collectionsChart.map(col => <Content>{col.name}: {col.count} items</Content>)}
                   </React.Fragment>
                 }
               />

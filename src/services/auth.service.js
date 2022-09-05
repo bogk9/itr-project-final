@@ -24,6 +24,7 @@ const login = (username, password) => {
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));      }
+      setTimeout(delay, 100);
       return response.data;
     });
 };
@@ -33,6 +34,11 @@ const logout = () => {
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
+
+var delay = () => {
+  console.log('');
+}
+
 export const AuthService = {
   register,
   login,

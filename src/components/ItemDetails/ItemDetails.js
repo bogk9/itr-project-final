@@ -101,7 +101,7 @@ export const ItemDetails = (props) => {
     >
       <DetailsBox>
         <Typography>ID: {openDetailsPrompt.id}</Typography>
-        <Typography>Name: {openDetailsPrompt.name}</Typography>
+        <Typography>{openDetailsPrompt.name} by {openDetailsPrompt.username}</Typography>
         <Typography sx={{display: "flex"}}><Tags tags={openDetailsPrompt.item_tags} /></Typography> 
         
         

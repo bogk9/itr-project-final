@@ -12,16 +12,18 @@ import Collection from "./CollectionEntity";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import { fetchCollections } from "../../actions/data";
+import { authHeader } from "../../services/auth-header";
 
 export const Collections = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const header = authHeader();
   const user = useSelector(state => state.auth.currentUser);
   const collections = useSelector(state => state.data.collections);
   const [error, setError] = React.useState();
 
   useEffect(() => {
-     dispatch(fetchCollections(user.id))
+     dispatch(fetchCollections(user.id, header))
       .catch(err => {
         setError(err);
         setTimeout(() => { navigate("/"); dispatch(logout());}, 2500);

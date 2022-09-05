@@ -2,7 +2,9 @@ import { authHeader } from "./auth-header";
 const header = authHeader();
 
 // specific user as arguemnt! 
-const fetchCollections = (user_id) => {
+const fetchCollections = (user_id, header) => {
+    console.log("fetching collections with header:");
+    console.log(header);
     return getData("userCollections", [user_id], header);
 }
 

@@ -52,11 +52,8 @@ exports.getCollectionItems = async (req, res) => {
     else if (req.query.type == "tag"){fetchedRecords = await ItemTag.query().where('tag_id', '=', req.query.id)}
     items = Item.query().findByIds(fetchedRecords.map(item => item.item_id));
   }
-  else if(req.query.type) items = Item.query().orderBy('id', 'desc').limit(16)
-  else if(req.query.id) items = CollectionItem.query()
-  .select('item_id as id', 'it.name as name', 'it.img_url as img_url', 'it.user_id as user_id')
-  .innerJoin('items as it', 'it.id', 'item_id')
-  .where('collection_id', '=', req.query.id);
+  else if(req.query.type) items = Item.query().select('items.id as id', 'items.name', 'items.img_url', 'items.user_id', 'u.username').innerJoin('users as u', 'items.user_id', 'u.id').orderBy('items.id', 'desc').limit(16)
+  else if(req.query.id) items = CollectionItem.query().select('item_id as id', 'it.name as name', 'it.img_url as img_url', 'it.user_id as user_id', 'u.username as username').innerJoin('items as it', 'it.id', 'item_id').innerJoin('users as u', 'user_id', 'u.id').where('collection_id', '=', req.query.id);
   let result = await items
   .withGraphFetched('item_tags.[tag]')
   .withGraphFetched('field_data.[field]')
@@ -86,6 +83,15 @@ exports.getTagsChart = async (req, res) => {
   const chart = await ItemTag.query().select('tag_id', 't.name as value', knex.raw('COUNT(*) as count'))
   .innerJoin('tags as t', 'tag_id', 't.id')
   .groupBy('tag_id');
+  res.send(chart);
+}
+
+exports.getCollectionsChart = async (req, res) => {
+  const chart = await CollectionItem.query().select('collection_id', 'c.name', knex.raw('COUNT(*) as count'))
+  .innerJoin('collections as c', 'collection_id', 'c.id')
+  .groupBy('collection_id')
+  .orderBy('count', 'desc')
+  .limit(3);
   res.send(chart);
 }
 
