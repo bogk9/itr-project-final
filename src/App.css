@@ -219,3 +219,7 @@ select {
   justify-content: flex-start;
   border: solid;
 }
+
+.tag-cloud-tag{
+  font-weight: 800
+}

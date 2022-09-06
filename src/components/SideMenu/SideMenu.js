@@ -15,6 +15,8 @@ export const SideMenu = () => {
   const navigate = useNavigate();
   let [tags, setTags] = useState([]);
   let [collectionsChart, setCollectionsChart] = useState([]);
+  const colors = ["#FF453A", "#FF9F0A", "#30D158", "#66D4CF", 
+  "#40C8E0", "#64D2FF", "#0A84FF", "#5E5CE6", "#BF5AF2", "#FF375F", "#AC8E68"]
   const getData = (action, targets, headers, extraParams = {}) => {
     const params = new URLSearchParams(targets.map((s) => ["item_id", s]));
     Object.entries(extraParams).forEach(([key, value]) => params.append(key, value));
@@ -29,7 +31,7 @@ export const SideMenu = () => {
 
   useEffect(() => {
     getData('tagsChart', [], headers)
-    .then(response => setTags(response))
+    .then(response => setTags(response.map(tag => {return {...tag, color: colors[Math.floor(Math.random()*colors.length)]}})))
   }, [])
 
   useEffect(() => {
