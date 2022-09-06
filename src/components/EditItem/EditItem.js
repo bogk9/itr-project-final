@@ -106,8 +106,17 @@ export const EditItem = () => {
                 {(itemData?.field_data || []).map((field, index) => {
                     if(field.field.type=="string" ) return <input value={extraFieldsState[field.field_id]} placeholder={field.field.name} onChange={onExtraFieldChanged(field.field_id)} />
                     if(field.field.type=="multiline" ) return <textarea value={field.value} placeholder={field.field.name} onChange={onExtraFieldChanged(field.field_id)}/>
+                    if(field.field.type=="integer") return <input type="number" placeholder={field.field.name} onChange={onExtraFieldChanged(field.id)} />
                     if(field.field.type=="boolean" ) {
-                        return <><input {...register('x', { required: true })} type="radio" name={field.name} value="true" onChange={onExtraFieldChanged(field.field_id)}/><input {...register('x', { required: true })}  type="radio" name={field.name} value="false" onChange={onExtraFieldChanged(field.id)}/><label for={field.name}>{field.name}</label></>
+                      return <Box className="bool-input">
+                      <label for={field.name}>
+                        <Typography sx={{mr: 2}}>{field.name}</Typography>
+                        </label>
+                        <Typography>True</Typography>
+                        <input {...register('x', { required: true })} type="radio" className="bool-radio" name={field.name} value="true" onChange={onExtraFieldChanged(field.id)}/>
+                        <Typography>False</Typography>
+                        <input className="bool-radio"{...register('x', { required: true })}  type="radio" name={field.name} value="false" onChange={onExtraFieldChanged(field.id)}/>
+                      </Box>
                     }
                 })}
                 <input type="submit" />

@@ -18,11 +18,6 @@ const ItemLike = require("../database/models/itemlike");
 const secret_key = "test";
 
 
-exports.getUserList = async (req, res) => {
-  const users = await User.query();
-  res.send(users);
-}
-
 exports.search = async (req, res) => {
   if(req.query.type){
     findAll(req.query.id, req.query.keyword)
@@ -41,6 +36,14 @@ exports.getUserCollections = async (req, res) => {
   .where('user_id', '=', req.userId)
   .orderBy('name');
   res.send(userCollections);
+}
+
+exports.getUserList = async (req, res) => {
+  if(req.userRole !== "2") res.status(403).json({message: "Forbidden"})
+  else {
+  const users = await User.query();
+  res.send(users);
+  }
 }
 
 exports.getCollectionItems = async (req, res) => {
@@ -104,6 +107,7 @@ exports.getItemData = async (req, res) => {
 }
 
 exports.changeUserStatus = (req, res) => {
+  if(req.userRole !== "2") res.status(403).json({message: "Forbidden"})
   var targets = req.query.id ? [].concat(req.query.id) : [];
   User.query()
    .findByIds(targets)
