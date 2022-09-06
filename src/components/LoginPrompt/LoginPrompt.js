@@ -63,7 +63,7 @@ export const LoginPrompt = () => {
           setUsername("");
           setPassword("");
           setLoading(false);
-          navigate("/panel");
+          navigate("/collections");
         })
         .catch((error) => {
           setLoading(false);

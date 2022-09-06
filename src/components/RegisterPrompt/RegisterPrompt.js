@@ -89,7 +89,7 @@ export const RegisterPrompt = () => {
           setUsername(""); setPassword(""); setEmail(""); setLoading(false);
           dispatch(toggleRegisterPrompt(false));
           dispatch({ type: CLEAR_MESSAGE });
-          navigate("/panel");
+          navigate("/collections");
         })
         .catch((error) => {
           setLoading(false);

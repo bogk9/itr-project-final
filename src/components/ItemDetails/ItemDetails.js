@@ -102,7 +102,7 @@ export const ItemDetails = (props) => {
       <DetailsBox>
         <Typography>ID: {openDetailsPrompt.id}</Typography>
         <Typography>{openDetailsPrompt.name} by {openDetailsPrompt.username}</Typography>
-        <Typography sx={{display: "flex"}}><Tags tags={openDetailsPrompt.item_tags} /></Typography> 
+        <Typography sx={{display: "flex", justifyContent: "center"}}><Tags tags={openDetailsPrompt.item_tags} /></Typography> 
         
         
         <TableContainer sx={{m:1, mt:2,  borderRadius: 6 , width: "auto"}} component={Paper}>
@@ -146,7 +146,7 @@ export const ItemDetails = (props) => {
                   alt={comment.user_id}
                 />
               </ListItemAvatar>
-              <ListItemText sx={{color: "black"}} id={labelId} primary={comment.value} />
+              <ListItemText sx={{color: "black"}} id={labelId} primary={`${comment.user.username} says: ${comment.value}`} />
             </ListItemButton>
           </ListItem>
         );

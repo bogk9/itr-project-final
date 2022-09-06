@@ -187,7 +187,9 @@ export const NavigationButton = styled(Button)({
     paddingRight: 15,
     marginTop: 2,
     marginLeft: 6,
-    marginRight: 6
+    marginRight: 6,
+    width: "100%",
+    padding: "27px !important"
   },
 });
 

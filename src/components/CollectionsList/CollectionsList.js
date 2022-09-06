@@ -41,7 +41,7 @@ export const Collections = () => {
             <Box sx={{justifySelf: "end", display: "flex", justifyContent: "end", width: "100%"}}>
             <NavigationButton
               variant="contained"
-              sx={{ margin: 1 }}
+              sx={{ margin: 1, mt: 0 }}
               endIcon={<SendIcon />}
               component={Link}
               to={'/new-collection'}

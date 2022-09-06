@@ -57,7 +57,7 @@ exports.getCollectionItems = async (req, res) => {
   let result = await items
   .withGraphFetched('item_tags.[tag]')
   .withGraphFetched('field_data.[field]')
-  .withGraphFetched('comments')
+  .withGraphFetched('comments.[user]')
   .withGraphFetched('likes')
   res.send(result);
 }
@@ -152,7 +152,7 @@ exports.addComment = (req, res) => {
 }
 
 exports.getComments = (req, res) => {
-  Comment.query().where({item_id: req.query.item_id})
+  Comment.query().where({item_id: req.query.item_id}).withGraphFetched('user')
   .then(result => res.send(result))
   .catch(err => res.status(400).json({message: err}));
 }
